@@ -1,0 +1,56 @@
+
+name: danish74-demoapp
+version: '1.0'
+summary: DemoApp
+description: |
+  Demo X11 app example.
+confinement: devmode
+base: core20
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+
+
+parts:
+
+  card-uid:
+    plugin: python
+    #python-version: python3
+    source: demo-app/
+    stage-packages: [python3-tk]
+
+  debian-multiarch-triplet-provider-launch:
+    plugin: nil
+    stage-snaps:
+    - debian-multiarch-triplet-provider-launch
+
+  tcltk-launch:
+      plugin: nil
+      stage-snaps:
+        - tcltk-launch
+
+apps:
+  card-uid:
+    command: bin/popup
+    command-chain:
+      - bin/debian-multiarch-triplet-provider-launch
+      - bin/tcltk-launch
+    plugs:
+      - desktop
+      - home
+      - unity7
+      - wayland
+      - x11
+
+# Needed by Mir and/or Xwayland
+layout:
+  /usr/share/X11:
+    bind: $SNAP/usr/share/X11
+  /usr/bin/xkbcomp:
+    symlink: $SNAP/usr/bin/xkbcomp
+  /usr/share/icons:
+    bind: $SNAP/usr/share/icons
+  /usr/share/fonts:
+    bind: $SNAP/usr/share/fonts
+  /etc/fonts:
+    bind: $SNAP/etc/fonts
+
