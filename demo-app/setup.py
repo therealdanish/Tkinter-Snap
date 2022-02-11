@@ -15,7 +15,7 @@ setuptools.setup(
     author_email="hussainidanish347@yahoo.com",
     description="A small demo project for QT5 apps",
     classifiers=[
-        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
